@@ -4,6 +4,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { SlideshowComponent } from './slideshow/slideshow.component';
 import { MoviesPosterGridComponent } from './movies-poster-grid/movies-poster-grid.component';
+import { BarRatingModule } from 'ngx-bar-rating';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -12,6 +14,6 @@ import { MoviesPosterGridComponent } from './movies-poster-grid/movies-poster-gr
     MoviesPosterGridComponent,
   ],
   exports: [NavbarComponent, SlideshowComponent, MoviesPosterGridComponent],
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, BarRatingModule, PipesModule],
 })
 export class ComponentsModule {}

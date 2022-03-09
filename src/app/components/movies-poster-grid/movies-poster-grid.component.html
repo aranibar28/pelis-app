@@ -4,7 +4,7 @@
     *ngFor="let movie of movies"
   >
     <img
-      src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}"
+      [src]="movie.poster_path | poster"
       class="img-fluid poster"
       style="height: 420px"
     />
@@ -12,7 +12,19 @@
     <div>
       <h5>{{ movie.title }}</h5>
       <div class="row">
-        <div class="col-10 text-white">******</div>
+        <div class="col-10 text-white">
+          <bar-rating [rate]="movie.vote_average" [max]="10" [readOnly]="true">
+            <ng-template ratingActive>
+              <i class="fa fa-star" style="color: #ddd900"></i>
+            </ng-template>
+            <ng-template ratingInactive>
+              <i class="fa fa-star" style="color: #d2d2d2"></i>
+            </ng-template>
+            <ng-template ratingFraction>
+              <i class="fa fa-star-half-alt" style="color: #ddd900"></i>
+            </ng-template>
+          </bar-rating>
+        </div>
         <div class="col-2 text-white">
           {{ movie.vote_average | number: "1.1-2" }}
         </div>
