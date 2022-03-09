@@ -1,1 +1,17 @@
-<p>home works!</p>
+<section class="section">
+  <h1>Últimos lanzamientos</h1>
+
+  <div class="row" *ngIf="movies.length > 0">
+    <div class="col">
+      <app-slideshow [movies]="movies"></app-slideshow>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Películas</h2>
+  <app-movies-poster-grid
+    *ngIf="movies.length > 0"
+    [movies]="movies"
+  ></app-movies-poster-grid>
+</section>

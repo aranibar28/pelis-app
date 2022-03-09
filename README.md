@@ -11,6 +11,8 @@
     ng g c pages/movie -is --skip-tests
     ng g c pages/search -is --skip-tests
 
+    ng g c components/slideshow -is --skip-tests
+
     ng g s services/movies
     
 
