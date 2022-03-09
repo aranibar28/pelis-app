@@ -8,7 +8,7 @@ import { SearchComponent } from './pages/search/search.component';
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'movie/:id', component: MovieComponent },
-  { path: 'search', component: SearchComponent },
+  { path: 'search/:text', component: SearchComponent },
   { path: '**', redirectTo: '/home' },
 ];
 

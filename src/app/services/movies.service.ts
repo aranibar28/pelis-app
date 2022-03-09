@@ -21,11 +21,14 @@ export class MoviesService {
     };
   }
 
+  resetCarterleraPage() {
+    this.carteleraPage = 1;
+  }
+
   getCartelera(): Observable<Movie[]> {
     if (this.loading) {
       return of([]);
     }
-
     this.loading = true;
     return this.http
       .get<CarteleraResponse>(`${this.baseUrl}/movie/now_playing`, {
@@ -38,5 +41,15 @@ export class MoviesService {
           this.loading = false;
         })
       );
+  }
+
+  searchMovie(text: string): Observable<Movie[]> {
+    const params = { ...this.params, page: 1, query: text };
+
+    return this.http
+      .get<CarteleraResponse>(`${this.baseUrl}/search/movie`, {
+        params,
+      })
+      .pipe(map((resp) => resp.results));
   }
 }
