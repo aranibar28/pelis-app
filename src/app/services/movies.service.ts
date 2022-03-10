@@ -4,6 +4,7 @@ import { catchError, map, Observable, of, tap } from 'rxjs';
 import { CarteleraResponse, Movie } from '../interfaces/cartelera-response';
 import { Cast, CreditsResponse } from '../interfaces/credits.response';
 import { MovieResponse } from '../interfaces/movie-response';
+import { Result, VideoResponse } from '../interfaces/video-response';
 
 @Injectable({
   providedIn: 'root',
@@ -69,6 +70,17 @@ export class MoviesService {
       })
       .pipe(
         map((resp) => resp.cast),
+        catchError((error) => of([]))
+      );
+  }
+
+  getVideos(id: string): Observable<Result[]> {
+    return this.http
+      .get<VideoResponse>(`${this.baseUrl}/movie/${id}/videos`, {
+        params: this.params,
+      })
+      .pipe(
+        map((resp) => resp.results),
         catchError((error) => of([]))
       );
   }
