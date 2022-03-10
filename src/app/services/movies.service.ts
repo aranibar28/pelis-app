@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, of, tap } from 'rxjs';
+import { catchError, map, Observable, of, tap } from 'rxjs';
 import { CarteleraResponse, Movie } from '../interfaces/cartelera-response';
+import { Cast, CreditsResponse } from '../interfaces/credits.response';
+import { MovieResponse } from '../interfaces/movie-response';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +18,7 @@ export class MoviesService {
   get params() {
     return {
       api_key: '5e15a7fba8a3835e2e2a46529aa637ec',
-      language: 'es-US',
+      language: 'es-ES',
       page: this.carteleraPage.toString(),
     };
   }
@@ -45,11 +47,29 @@ export class MoviesService {
 
   searchMovie(text: string): Observable<Movie[]> {
     const params = { ...this.params, page: 1, query: text };
-
     return this.http
       .get<CarteleraResponse>(`${this.baseUrl}/search/movie`, {
         params,
       })
       .pipe(map((resp) => resp.results));
+  }
+
+  getMovieDetails(id: string) {
+    return this.http
+      .get<MovieResponse>(`${this.baseUrl}/movie/${id}`, {
+        params: this.params,
+      })
+      .pipe(catchError((error) => of(null)));
+  }
+
+  getCasts(id: string): Observable<Cast[]> {
+    return this.http
+      .get<CreditsResponse>(`${this.baseUrl}/movie/${id}/credits`, {
+        params: this.params,
+      })
+      .pipe(
+        map((resp) => resp.cast),
+        catchError((error) => of([]))
+      );
   }
 }

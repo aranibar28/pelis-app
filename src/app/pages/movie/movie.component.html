@@ -1,1 +1,64 @@
-<p>movie works!</p>
+<section class="row animated fadeIn fast mt-4" *ngIf="movie">
+  <div class="col-md-4">
+    <img
+      [src]="movie.poster_path | poster"
+      [alt]="movie.title"
+      class="img-thumbnail poster-img"
+    />
+  </div>
+
+  <div class="col-md-8">
+    <div class="d-flex justify-content-between">
+      <h3>{{ movie.title }} ({{ movie.release_date | date: "yyyy" }})</h3>
+      <button class="btn btn-outline-info" (click)="onBack()">Regresar</button>
+    </div>
+    <div>
+      <span class="badge rounded-pill bg-danger me-2">PG-13</span>
+      <span>{{ movie.release_date }} (US)</span>
+      <span *ngFor="let genre of movie.genres" class="badge bg-primary mx-1">
+        {{ genre.name }}
+      </span>
+      <span>{{ movie.runtime | times }}</span>
+    </div>
+    <div class="row my-4">
+      <div class="col">
+        <bar-rating [rate]="movie.vote_average" [max]="10" [readOnly]="true">
+          <ng-template ratingActive>
+            <i class="fa fa-star" style="color: #ddd900"></i>
+          </ng-template>
+          <ng-template ratingInactive>
+            <i class="fa fa-star" style="color: #d2d2d2"></i>
+          </ng-template>
+          <ng-template ratingFraction>
+            <i class="fa fa-star-half-alt" style="color: #ddd900"></i>
+          </ng-template>
+        </bar-rating>
+      </div>
+      <div class="col text-white">
+        Rating: {{ movie.vote_average | number: "1.1-2" }}
+      </div>
+    </div>
+    <div *ngIf="movie.tagline">
+      <p class="fst-italic text-white my-4">"{{ movie.tagline }}"</p>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col text-white">
+        <h3>Vista general</h3>
+        <p>{{ movie.overview }}</p>
+      </div>
+    </div>
+    <div class="text-white">
+      <h3>Producciones</h3>
+      <ul *ngFor="let item of movie.production_companies">
+        <li>{{ item.name }}</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="row mt-5" *ngIf="cast.length > 0">
+  <div class="col">
+    <app-cast-slideshow [cast]="cast"></app-cast-slideshow>
+  </div>
+</div>

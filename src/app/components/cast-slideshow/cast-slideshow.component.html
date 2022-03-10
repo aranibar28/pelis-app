@@ -1,0 +1,17 @@
+<section class="text-center text-white my-4">
+  <h3>REPARTO</h3>
+  <div class="swiper animated fadeIn fast">
+    <div class="swiper-wrapper">
+      <div *ngFor="let actor of cast" class="swiper-slide">
+        <img
+          [src]="actor.profile_path | poster"
+          [alt]="actor.name"
+          class="img-thumbnail pointer"
+        />
+        <p>{{ actor.name }}</p>
+        <p>({{ actor.character }})</p>
+      </div>
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+</section>
